@@ -1,0 +1,82 @@
+{# ------------------------------------------------------- #}
+{# INDIVIDUAL VIEW FOR EACH sermons #}
+{# This page can use any data from http:localhost:2000/cms/#/form/sermons/ #}
+{# Webhook uses the SWIG.js (like Djagno/Twig) templating system. Their documentation is here: #}
+{# http://paularmstrong.github.io/swig/docs/tags/ #}
+{# Learn about calling data into Webhook pages here: #}
+{# http://www.webhook.com/docs/template-rules-and-filters/ #}
+{# ------------------------------------------------------- #}
+{# Confused what extends and blocks do? Watch a primer: #}
+{# http://www.webhook.com/docs/template-inheritance-blocks/ #}
+{% extends "templates/partials/base.html" %}
+{# This sets our page <title>. It will append this sermons's name to the site title defined in base.html #}
+{% block title %}{% parent %} - {{ item.name }}{% endblock %}
+{% block content %}
+  <p><a href="{{ url('sermons') }}">View a list of all sermons</a></p>
+  <h1>{{ item.name }}</h1>
+  <ul>
+      <li>
+        <strong>Name: </strong>
+        {{ item.name }}
+      </li>
+      <li>
+        <strong>Create Date: </strong>
+        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
+        {{ item.create_date|date('F d Y') }}
+      </li>
+      <li>
+        <strong>Last Updated: </strong>
+        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
+        {{ item.last_updated|date('F d Y') }}
+      </li>
+      <li>
+        <strong>Publish Date: </strong>
+        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
+        {{ item.publish_date|date('F d Y') }}
+      </li>
+      <li>
+        <strong>Date Preached: </strong>
+        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
+        {{ item.date_preached|date('F d Y') }}
+      </li>
+      <li>
+        <strong>Service: </strong>
+        {{ item.service }}
+      </li>
+      <li>
+        <strong>Bible Text: </strong>
+        {{ item.bible_text }}
+      </li>
+      <li>
+        <strong>Speaker: </strong>
+        {# Relationship. Note that use the label you set for the relation, not the content-type name. #}
+        {# You can ouput more than just the name. Feel free to output more fields from the CMS. #}
+        <a href="{{ url(item.speaker) }}">{{ item.speaker.name }}</a>
+      </li>
+      <li>
+        <strong>Series: </strong>
+        {# Relationship. Note that use the label you set for the relation, not the content-type name. #}
+        {# You can ouput more than just the name. Feel free to output more fields from the CMS. #}
+        <a href="{{ url(item.series) }}">{{ item.series.name }}</a>
+      </li>
+      <li>
+        <strong>Content: </strong>
+        {{ item.content|markdown }}
+      </li>
+      <li>
+        <strong>Sermon MP3: </strong>
+        {# HTML5 audio player for your listening pleasure. #}
+        <audio src="{{ item.sermon_mp3.url }}" controls></audio>
+      </li>
+      <li>
+        <strong>Slides: </strong>
+        {# Download link. #}
+        <a href="{{ item.slides.url }}">Click to download</a>
+      </li>
+      <li>
+        <strong>Handout: </strong>
+        {# Download link. #}
+        <a href="{{ item.handout.url }}">Click to download</a>
+      </li>
+  </ul>
+{% endblock %}
