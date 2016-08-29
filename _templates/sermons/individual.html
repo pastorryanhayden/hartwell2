@@ -1,0 +1,118 @@
+{% extends "templates/partials/base.html" %}
+{% block title %}{% parent %} - {{ item.name }}{% endblock %}
+{% block content %}
+ <div class="sermonslistContent__header">
+    <div class="wrapper">
+        <h1>Sermons</h1>
+        <h3>The Preaching Ministry of our Church</h3>
+        </div><!--/sermonslistContent__header-->
+    </div><!--/sermonlistContent__header-->
+    <div class="single-sermon-page"> 
+
+<div class="singleSermonHeader">
+    <img class="singleSermonHeader__mainImage" src="{{item.series.featured_image | imageSize(1920,1080)}}" alt="Series Graphic">
+  
+    <div class="singleSermonHeader__teaser">
+    <div class="singleSermonHeader__title">
+        <h3>{{item.name}}</h3>
+        <ul class="action__buttons menu"> 
+            {% if item.sermon_mp3 %}<li><a href="{{item.sermon_mp3.url}}" alt="play"><i class="fa fa-play"></i></a></li>{% endif %}
+            {% if item.handout %}<li><a href="{{item.handout.url}}" alt="handout"><i class="fa fa-file-pdf-o"></i></a></li>{% endif %}
+            {% if item.slides %}<li><a href="{{item.slides.url}}" alt="sound"><i class="fa fa-file-powerpoint-o"></i></a></li>{% endif %}
+        </ul><!--/action__buttons-->
+        </div><!--/sermonslistItem__title-->
+        <ul class="singleSermonHeader__tagline">
+        <li><i class="fa fa-calendar"></i> Sunday, January 1st</li>
+        <li><i class="fa fa-clock-o"></i> {{item.service}}</li>
+        <li><i class="fa fa-user"></i> {{item.speaker}}</li>
+        <li><i class="fa fa-book"></i> Romans 1:6</li>
+        </ul>
+        <audio class="sermonslistPlayer" controls>
+            <source src="horse.ogg" type="audio/ogg">
+            <source src="horse.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio>
+        <a href="#" class="button"><i class="fi-download"></i> Download</a>
+    </div>
+</div>
+<div class="singleSermonContent">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam beatae commodi alias impedit ex porro cum voluptate sapiente, hic accusantium autem error soluta nemo deserunt sequi magnam dolorum eius enim!</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, dolorum facilis qui eos eveniet vitae deleniti accusamus sint, velit facere voluptates tempora quasi cumque, id. Dignissimos ratione laudantium, eveniet necessitatibus.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam dolorem cumque, reiciendis deserunt a, sint iusto est ea, corporis doloremque veritatis nemo? Accusamus, eligendi, ratione. Recusandae earum sit vero quos.</p>
+    <a href="#" class="button">Keep Reading</a>
+</div><!--/singleSermonContent-->
+
+
+<div class="sermonslistContent singleSermonPage">
+
+    <div class="sermonslistContent__MainList">
+        <h2>More Sermons From This Series:</h2>
+       <div class="sermons-list">
+        <div class="sermon-listing">
+            <div class="sermon-featured-image">
+                <img src="http://placehold.it/1920x1080" alt="">
+            </div><!--/featured-image-->
+            <div class="sermon-info">
+                <h3><a href="#">Love the Lord Your God With All Your Heart</a></h3>
+                <p><i class="fa fa-user"></i> Pastor Hayden | <i class="fa fa-book"></i> James 3:1-3 | <i class="fa fa-calendar"></i> March 16, 2016</p>
+            </div><!--/info-->
+            <div class="sermon-buttons">
+                <a href="#"><i class="fa fa-file-audio-o"></i></a>
+                <a href="#"><i class="fa fa-file-pdf-o"></i></a>
+                <a href="#"><i class="fa fa-file-powerpoint-o"></i></a>
+                <a href="#"><i class="fa fa-file-text-o"></i></a>
+            </div><!--/sermon-buttons-->
+        </div><!--/sermon-listing-->
+        <div class="sermon-listing">
+            <div class="sermon-featured-image">
+                <img src="http://placehold.it/1920x1080" alt="">
+            </div><!--/featured-image-->
+            <div class="sermon-info">
+                <h3><a href="#">Love the Lord Your God With All Your Heart</a></h3>
+                <p><i class="fa fa-user"></i> Pastor Hayden | <i class="fa fa-book"></i> James 3:1-3 | <i class="fa fa-calendar"></i> March 16, 2016</p>
+            </div><!--/info-->
+            <div class="sermon-buttons">
+                <a href="#"><i class="fa fa-file-audio-o"></i></a>
+                <a href="#"><i class="fa fa-file-pdf-o"></i></a>
+                <a href="#"><i class="fa fa-file-powerpoint-o"></i></a>
+                <a href="#"><i class="fa fa-file-text-o"></i></a>
+            </div><!--/sermon-buttons-->
+        </div><!--/sermon-listing-->
+        <div class="sermon-listing">
+            <div class="sermon-featured-image">
+                <img src="http://placehold.it/1920x1080" alt="">
+            </div><!--/featured-image-->
+            <div class="sermon-info">
+                <h3><a href="#">Love the Lord Your God With All Your Heart</a></h3>
+                <p><i class="fa fa-user"></i> Pastor Hayden | <i class="fa fa-book"></i> James 3:1-3 | <i class="fa fa-calendar"></i> March 16, 2016</p>
+            </div><!--/info-->
+            <div class="sermon-buttons">
+                <a href="#"><i class="fa fa-file-audio-o"></i></a>
+                <a href="#"><i class="fa fa-file-pdf-o"></i></a>
+                <a href="#"><i class="fa fa-file-powerpoint-o"></i></a>
+                <a href="#"><i class="fa fa-file-text-o"></i></a>
+            </div><!--/sermon-buttons-->
+        </div><!--/sermon-listing-->
+        <div class="sermon-listing">
+            <div class="sermon-featured-image">
+                <img src="http://placehold.it/1920x1080" alt="">
+            </div><!--/featured-image-->
+            <div class="sermon-info">
+                <h3><a href="#">Love the Lord Your God With All Your Heart</a></h3>
+                <p><i class="fa fa-user"></i> Pastor Hayden | <i class="fa fa-book"></i> James 3:1-3 | <i class="fa fa-calendar"></i> March 16, 2016</p>
+            </div><!--/info-->
+            <div class="sermon-buttons">
+                <a href="#"><i class="fa fa-file-audio-o"></i></a>
+                <a href="#"><i class="fa fa-file-pdf-o"></i></a>
+                <a href="#"><i class="fa fa-file-powerpoint-o"></i></a>
+                <a href="#"><i class="fa fa-file-text-o"></i></a>
+            </div><!--/sermon-buttons-->
+        </div><!--/sermon-listing-->
+    </div><!--/sermons-list-->
+
+    </div><!--/end main list-->
+</div><!--/sermonslistContent-->
+<div class="sermonslistPagination">
+
+</div><!--/sermonslistPagination-->
+{% endblock %}

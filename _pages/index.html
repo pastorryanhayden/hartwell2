@@ -1,0 +1,84 @@
+{# ------------------------------------------------------- #}
+
+{# YOUR HOMEPAGE #}
+
+{# Webhook uses the SWIG.js (like Djagno/Twig) templating system. Their documentation is here: #}
+{# http://paularmstrong.github.io/swig/docs/tags/ #}
+
+{# Learn about calling data into Webhook pages here: #}
+{# http://www.webhook.com/docs/template-rules-and-filters/ #}
+
+{# ------------------------------------------------------- #}
+
+{# Confused what extends and blocks do? Watch a primer: #}
+{# http://www.webhook.com/docs/template-inheritance-blocks/ #}
+{% extends "templates/partials/base.html" %}
+
+{# This sets our page <title>. It will append "- Homepage" to the site title defined in base. #}
+{% block title %}{% parent %} - Homepage{% endblock %}
+
+{% block content %}
+
+<div class="home">
+    <div class="hero">
+        <img src="http://sitesforchurch.s3.amazonaws.com/cinci.jpg" alt="">
+        <div class="hero-content" id="app">
+        <h3>Loving Jesus <br> Loving Cincinatti</h3>
+              <p>Hartwell Baptist Church loves the people of Cincinnatti because Jesus loves the people of Cincinatti.  Ours is a dynamic church where the Bible is changing lives.</p>
+            <a href="/welcomepage" class="button hollow">Learn About Visiting</a>
+        </div><!-- hero-content -->
+    </div><!-- hero -->
+    <div class="recent-sermons">
+        <h2>Recent Sermons</h2>
+        <div class="sermons-wrapper">
+            {% for sermon in cms.sermons | slice(0,3)%}
+                <div class="sermon" style="background: url('{{sermon.series.featured_image|imageSize(271, 152) }}'); background-size: contain;">
+                <div class="sermon-text">
+                <h4><a href="{{ url(sermon) }}">{{sermon.name}}</a></h4>
+                <p class="text">{{sermon.bible_text}}</p>
+                <p></p>
+                </div><!--/sermon-text-->
+                </div><!--/sermon-->
+            {% endfor %}
+                
+        </div><!-- sermons-wrapper -->
+    </div><!-- recent-sermons -->
+    <div class="features">
+        <div class="home-events">
+            <h3>Upcoming Events</h3>
+           {% for event in cms.events |slice(0,4) |sort(date_time, true)%}
+           <div class="event">
+             {% if event.featured_image %}
+                <a href="{{ url(event) }}"><img src="{{event.featured_image |imageSize(160, 90)}}" alt=""></a>
+              {% else %}
+                <a href="{{ url(event) }}"><img src="http://placehold.it/1920x1080" alt=""></a>
+              {% endif %}
+                <div class="event-info">
+                    <h4><a href="{{ url(event) }}">{{event.name }}</a></h4>
+                    <p class="date">{{event.date_time|date('M d Y, g:ia')"}}</p>
+                </div><!--event-info-->
+            </div><!-- event -->
+           {% endfor %}
+        </div><!-- home-events -->
+        <div class="home-articles">
+            <h3>Recent Articles</h3>
+            {% for article in cms.blog |slice(0,4) %}
+            <div class="article">
+                {% if  article.featured_image %}
+                <a href="{{ url(article) }}"><img src="{{article.featured_image |imageSize(160, 90)}}" alt=""></a>
+                {% else %}
+                <a href="{{ url(article) }}"><img src="http://placehold.it/1920x1080" alt=""></a>
+                {% endif %}
+                <div class="article-info">
+                    <h4><a href="{{ url(article) }}">{{article.name}}</a></h4>
+                    <p class="author">{{article.author}}, <span class="date">{{ article.create_date|date('F d Y') }}</span></p>
+                </div><!--article-info--> 
+            </div><!-- article -->
+            {% endfor %}
+        </div><!-- home articles -->
+    </div><!-- features -->
+
+
+</div><!-- home wrapper-->
+
+{% endblock %}

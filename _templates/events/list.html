@@ -1,0 +1,65 @@
+{# ------------------------------------------------------- #}
+
+{# LIST VIEW OF ALL events #}
+
+{# Webhook uses the SWIG.js (like Djagno/Twig) templating system. Their documentation is here: #}
+{# http://paularmstrong.github.io/swig/docs/tags/ #}
+
+{# Learn about calling data into Webhook pages here: #}
+{# http://www.webhook.com/docs/template-rules-and-filters/ #}
+
+{# ------------------------------------------------------- #}
+
+{# Confused what extends and blocks do? Watch a primer: #}
+{# http://www.webhook.com/docs/template-inheritance-blocks/ #}
+{% extends "templates/partials/base.html" %}
+
+{# This sets our page <title>. It will append events to the site title defined in base.html #}
+{% block title %}{% parent %} - events{% endblock %}
+
+{% block content %}
+  {% set data = cms.events %}
+  {% set data = data|sort('publish_date', true) %}
+  {% set data = paginate(data, 8) %}
+
+  <div class="calendar-list">
+<div class="calendar-header">
+    <div class="wrapper">
+    <div class="calendar-header-text">
+        <h1>Calendar</h1>
+        <h3>Upcoming events in the life and ministry of our church.</h3>
+    </div><!--/calendar-header-text-->
+    <img src="{{root}}assets/img/Calendar_icon.png" alt=""> 
+    </div><!--/wrapper-->
+</div><!--/calendar-header-->
+<div class="events-list">
+  {% for object in data %}
+  {% if  object.featured_image%}
+    <div class="event-listing" style="background: url({{object.featured_image|imageSize(1920,1080)}}) no-repeat top center; background-size: contain; background-color: #d8d5c3;">
+      {% else %}
+      <div class="event-listing" style="background: url(https://dl.dropboxusercontent.com/u/47159282/template.001.jpg) no-repeat top center; background-size: contain; background-color: #d8d5c3;">
+      {% endif %}
+        <div class="event-content">
+            <div class="event-header">
+                <p class="event-date"><i class="fa fa-calendar"></i> {{object.date_time|date('M d Y, g:ia')"}}</p>
+                {% if  object.location %}
+                <p class="event-location"><i class="fa fa-map-marker"></i> {{object.location}}</p>
+                {% endif %}
+            </div><!--/event-header-->
+            <div class="event-body">
+                <h2><a href="{{ url(object) }}">{{object.name}}</a></h2>
+                {{object.content | markdown | truncate(100)}}
+            </div><!--/event-body-->
+            <div class="event-cta">
+                <a href="{{ url(object) }}" class="button">More Info</a>
+            </div><!--/event-cta-->
+        </div><!--/event-content-->
+    </div><!--/event-listing-->
+    {% endfor %}
+</div><!--/events-list-->
+</div><!--/calendar-list--> 
+
+
+  {% include "templates/partials/paginator.html" %}
+
+{% endblock %}

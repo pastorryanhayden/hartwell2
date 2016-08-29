@@ -1,0 +1,43 @@
+{% extends "templates/partials/base.html" %}
+{% block title %}{% parent %} - {{ item.name }}{% endblock %}
+{% block content %}
+ <div class="calendar-list">
+<div class="calendar-header">
+    <div class="wrapper">
+    <div class="calendar-header-text">
+        <h1>Calendar</h1>
+        <h3>Upcoming events in the life and ministry of our church.</h3>
+    </div><!--/calendar-header-text-->
+    <img src="assets/img/Calendar_icon.png" alt="">
+    </div><!--/wrapper-->
+</div><!--/calendar-header-->
+<div class="calendar-list-content">
+    <div class="calendar-list-item">
+      {% if  item.featured_image %}
+      <img src="{{item.featured_image | imageSize(1920, 1080) }}" alt="">
+      {% else %}
+        <img src="http://placehold.it/1920x1080" alt="">
+        {% endif %}
+        <div class="details">
+            <h3><a href="#">{{item.name}}</a></h3>
+            <div class="details-inner"> 
+                <div class="details-description">
+                    <p>{{item.short_description}}</p>
+                </div><!--/details-description-->
+                <div class="details-date">
+                    <p class="month">{{item.date_time | date('F') }}</p>
+                    <p class="day">{{item.date_time | date('d') }}</p>
+                </div><!--/details-date-->
+            </div><!--/details-inner-->
+        </div><!--/details-->
+    </div><!--/calendar-list-item-->
+    <div class="event-details">
+         {{ item.content|markdown }}
+    <a href="/events/" class="button event-return"> <i class="fi-left-arrow"></i> Return to Calendar</a>
+    </div> <!--/event-details-->
+
+</div><!--/calendar-list-content-->
+</div><!--/calendar-list--> 
+
+
+{% endblock %}

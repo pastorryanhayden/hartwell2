@@ -1,0 +1,52 @@
+{# ------------------------------------------------------- #}
+{# ONE OFF VIEW location #}
+{# This page can use any data from http:localhost:2000/cms/#/form/location/ #}
+{# Webhook uses the SWIG.js (like Djagno/Twig) templating system. Their documentation is here: #}
+{# http://paularmstrong.github.io/swig/docs/tags/ #}
+{# Learn about calling data into Webhook pages here: #}
+{# http://www.webhook.com/docs/template-rules-and-filters/ #}
+{# ------------------------------------------------------- #}
+{# Confused what extends and blocks do? Watch a primer: #}
+{# http://www.webhook.com/docs/template-inheritance-blocks/ #}
+{% extends "templates/partials/base.html" %}
+{# This sets our page <title>. It will append this location's name to the site title defined in base.html #}
+{% block title %}{% parent %} - {{ cms.location.name }}{% endblock %}
+{% block content %}
+  <h1>{{ cms.location.name }}</h1>
+  <ul>
+      <li>
+        <strong>Name: </strong>
+        {{ cms.location.name }}
+      </li>
+      <li>
+        <strong>Create Date: </strong>
+        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
+        {{ cms.location.create_date|date('F d Y') }}
+      </li>
+      <li>
+        <strong>Last Updated: </strong>
+        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
+        {{ cms.location.last_updated|date('F d Y') }}
+      </li>
+      <li>
+        <strong>Address: </strong>
+        <address>
+          {{ cms.location.address.street1 }}<br/>
+          {% if cms.location.address.street2 %}{{ cms.location.address.street2 }}<br/>{% endif %}
+          {{ cms.location.address.city }}, {{ cms.location.address.state }}. {{ cms.location.address.country }} {{ cms.location.address.zip }}
+        </address>
+      </li>
+      <li>
+        <strong>Preview URL: </strong>
+        {{ cms.location.preview_url }}
+      </li>
+      <li>
+        <strong>Slug: </strong>
+        {{ cms.location.slug }}
+      </li>
+      <li>
+        <strong>Google Map: </strong>
+        {{ cms.location.google_map }}
+      </li>
+  </ul>
+{% endblock %}

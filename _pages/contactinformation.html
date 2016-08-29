@@ -1,0 +1,60 @@
+{# ------------------------------------------------------- #}
+{# ONE OFF VIEW contactinformation #}
+{# This page can use any data from http:localhost:2000/cms/#/form/contactinformation/ #}
+{# Webhook uses the SWIG.js (like Djagno/Twig) templating system. Their documentation is here: #}
+{# http://paularmstrong.github.io/swig/docs/tags/ #}
+{# Learn about calling data into Webhook pages here: #}
+{# http://www.webhook.com/docs/template-rules-and-filters/ #}
+{# ------------------------------------------------------- #}
+{# Confused what extends and blocks do? Watch a primer: #}
+{# http://www.webhook.com/docs/template-inheritance-blocks/ #}
+{% extends "templates/partials/base.html" %}
+{# This sets our page <title>. It will append this contactinformation's name to the site title defined in base.html #}
+{% block title %}{% parent %} - {{ cms.contactinformation.name }}{% endblock %}
+{% block content %}
+  <h1>{{ cms.contactinformation.name }}</h1>
+  <ul>
+      <li>
+        <strong>Name: </strong>
+        {{ cms.contactinformation.name }}
+      </li>
+      <li>
+        <strong>Create Date: </strong>
+        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
+        {{ cms.contactinformation.create_date|date('F d Y') }}
+      </li>
+      <li>
+        <strong>Last Updated: </strong>
+        {# Format the date. You can use PHP's date function to format as needed. http://php.net/manual/en/function.date.php #}
+        {{ cms.contactinformation.last_updated|date('F d Y') }}
+      </li>
+      <li>
+        <strong>Phone number: </strong>
+        {{ cms.contactinformation.phone_number }}
+      </li>
+      <li>
+        <strong>Email: </strong>
+        {{ cms.contactinformation.email }}
+      </li>
+      <li>
+        <strong>Twitter: </strong>
+        {{ cms.contactinformation.twitter }}
+      </li>
+      <li>
+        <strong>Facebook: </strong>
+        {{ cms.contactinformation.facebook }}
+      </li>
+      <li>
+        <strong>Youtube: </strong>
+        {{ cms.contactinformation.youtube }}
+      </li>
+      <li>
+        <strong>Preview URL: </strong>
+        {{ cms.contactinformation.preview_url }}
+      </li>
+      <li>
+        <strong>Slug: </strong>
+        {{ cms.contactinformation.slug }}
+      </li>
+  </ul>
+{% endblock %}

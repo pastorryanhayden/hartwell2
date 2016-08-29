@@ -1,0 +1,94 @@
+{% extends "templates/partials/base.html" %}
+{% block title %}{% parent %} - {{ item.name }}{% endblock %}
+{% block content %}
+  <div class="ministriesContent">
+    <div class="ministriesContent__menu" data-sticky-container>
+    <h5>Our Ministries</h5>
+    {% set data = cms.ministries %}
+        <ul class="menu vertical">
+            {% for object in data %}
+      <li><a href="{{ url(object) }}">{{ object.name }}</a></li>
+    {% endfor %}
+        </ul>
+    </div><!--/ministries-menu-->
+    <div class="ministriesContent__content" id="content">
+    
+
+        <div class="ministriesContent__content__pageHeader">
+        <h1>{{item.name}}</h1>
+        </div><!--/page-header-->
+    <article class="ministriesContent__content__content">
+    <div class="ministriesContent__content__basic-info">
+        <div class="details">
+            <h5>Description:</h5>
+            <p>{{item.description}}</p>
+            <h5>Audience:</h5>
+            <p>{{item.group}}</p>     
+        </div>
+        <div class="leadership">
+            <h5>Leader: {{item.leader.name}}</h5>
+            {% if  item.leader.thumbnail %}
+            <img src="{{item.leader.thumbnail|imageSize(200, 200) }}" alt="">
+            {% endif %} 
+            <p>{{item.leader.bio}}</p>
+            <h5>Contact:</h5>
+            <p><i class="fi-telephone"></i> {{item.leader.phone_number}}</p>
+            <p><i class="fi-laptop"></i> {{item.leader.email}}</p>
+        </div>
+
+    </div><!--/basic-info-->
+       {{ item.content|markdown }}
+       {% if  item.photos_ministry %}
+    <div class="ministriesContent__content__photos">
+        <h2>Photos from {{item.name}}</h2>
+        {% for gallery in item.photos_ministry | slice(0,1) %}
+        {% for img in gallery.gallery | slice(0,1) %}
+        <a href="#" class="thumbnail"><img src="{{img | imageSize(600, 400)}}" alt=""></a>
+        {% endfor %}
+        
+        <div class="ministriesContent__content__photos__thumbnails">
+          {% for img in gallery.gallery | slice(1,4) %}
+            <a href="#" class="thumbnail"><img src="{{img | imageSize(100, 100)}}" alt=""></a>
+          {% endfor %}
+          </div>
+        {% endfor %}
+        </div><!--/basic-info-->
+      {% endif %}
+    </article>
+    </div><!--/main-content-->
+      <aside class="ministriesContent__content__sidebar">
+        {% if item.logo %}
+          <div class="logo">
+        <img src="{{item.logo|imageSize(200, 'auto') }}}}" alt="Ministry Logo">
+        </div><!--logo-->
+        {% endif %}
+        {% if item.events_ministry %}
+        <div class="events">
+        <h4>Upcoming Events:</h4>
+
+        {% for event in item.events_ministry %}
+        <div class="event-lister">
+            <div class="calendar-thumb">
+                <h5 class="date">{{event.date_time | date('d') }}</h5>
+                <p class="month">{{event.date_time | date('M') }}</p>
+            </div><!--/calendar-thumb-->
+            <div class="event-lister-content">
+                <h5><a href="{{ url(event) }}">{{event.name}}</a></h5>
+                <p>{{event.short_description}}</p>
+                <a href="{{ url(event) }}" class="button hollow">More Details</a>
+            </div><!--/event-lister-content-->
+        </div><!--/event-lister-->
+        {% endfor %}
+
+
+        </div><!--/events-->
+        {% endif %}
+        <div class="site-wide-plugs">
+
+        </div><!--/site-wide-plugs-->
+    </aside>
+</div><!--/ministries-content-->
+
+
+
+{% endblock %}
